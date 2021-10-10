@@ -28,3 +28,4 @@ shadow-rs = "0.5.25"
 [features]
 default = ["sample_kbc"]
 sample_kbc = []
+isecl_kbc = []

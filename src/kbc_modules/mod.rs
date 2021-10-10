@@ -8,6 +8,10 @@
 #[cfg(feature = "sample_kbc")]
 pub mod sample_kbc;
 
+// add isecl kbc module
+#[cfg(feature = "isecl_kbc")]
+pub mod isecl_kbc;
+
 use anyhow::*;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -45,6 +49,14 @@ impl KbcModuleList {
                 Box::new(sample_kbc::SampleKbc::new(kbs_uri))
             });
             mod_list.insert("sample_kbc".to_string(), instantiate_func);
+        }
+
+        #[cfg(feature = "isecl")]
+        {
+            let instantiate_func: KbcInstantiateFunc = Box::new(|kbs_uri: String| -> KbcInstance {
+                Box::new(isecl_kbc::ISeclKbc::new(kbs_uri))
+            });
+            mod_list.insert("isecl_kbc".to_string(), instantiate_func);
         }
 
         KbcModuleList { mod_list: mod_list }
